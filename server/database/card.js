@@ -2,20 +2,24 @@ const knex = require('./connection');
 
 const Cards = {
   getAllCardsBySetId: async (id) => {
-    return await knex.select().from('cards').where('set_id', id);
+    return knex.select().from('cards').where('set_id', id);
   },
 
-  addNewCard: async (title, desciption, setID) => {
+  add: async (title, description, setID) => {
     const card = {
       title: title,
-      description: desciption,
+      description: description,
       set_id: setID
     };
-    await knex('cards').insert(card);
+    return knex('cards').insert(card);
   },
 
-  deleteCard: async (id) => {
-    await knex('cards').where('card_id', id).delete();
+  delete: async (id) => {
+    return knex('cards').where('card_id', id).delete();
+  },
+
+  deleteAllCardsBySetId: async (id) => {
+    return knex.select().from('cards').where('set_id', id).delete();
   }
 }
 

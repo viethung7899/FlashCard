@@ -2,7 +2,18 @@ const knex = require('./connection');
 
 const Sets = {
   getAllSetsByUserId: async (id) => {
-    return await knex('card_sets').where('user_id', id);
+    return knex('card_sets').where('user_id', id);
+  },
+
+  add: async(id, title) => {
+    return knex('card_sets').insert({
+      title: title,
+      user_id: id
+    });
+  },
+
+  delete: async(id) => {
+    return knex('card_sets').where('set_id', id).delete();
   }
 };
 
