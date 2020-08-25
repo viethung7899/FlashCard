@@ -7,7 +7,7 @@ const knex = require('knex')({
     port: 5432,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: 'flash_card'
+    database: 'flashcard'
   }
 });
 
