@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CardsService} from '../../services/cards.service';
+
 import {Set} from '../../models/set.model';
+import {FlashcardService} from "../../services/flashcard.service";
 
 @Component({
   selector: 'app-set',
@@ -10,16 +11,19 @@ import {Set} from '../../models/set.model';
 export class SetComponent implements OnInit {
   @Input() set: Set;
 
-  constructor(private cardsService: CardsService) { }
+  constructor(private flashcardService: FlashcardService) { }
 
   ngOnInit(): void {
   }
 
   onSelected(): void {
-    this.cardsService.setSelected.emit(this.set);
+    console.log(this.set.set_id);
+    this.flashcardService.selectSet.emit(this.set);
   }
 
   onDeleted(): void {
-    this.cardsService.deleteSet(this.set);
+    this.flashcardService.deleteSet(this.set.set_id).subscribe(
+        res => console.log(res)
+    )
   }
 }

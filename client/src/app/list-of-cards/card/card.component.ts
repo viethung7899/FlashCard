@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {CardsService} from '../../services/cards.service';
 
 import {Card} from '../../models/card.model';
+import {FlashcardService} from "../../services/flashcard.service";
 
 @Component({
   selector: 'app-card',
@@ -10,19 +10,17 @@ import {Card} from '../../models/card.model';
 })
 export class CardComponent implements OnInit {
   @Input() card: Card;
-  @Output() sendCard = new EventEmitter<Card>();
 
-  constructor(private cardsService: CardsService) {
+  constructor(private flashcardService: FlashcardService) {
   }
 
   ngOnInit(): void {
   }
 
-  showEdit(): void {
-    this.sendCard.emit(this.card);
-  }
-
   onDeleted(): void {
-    this.cardsService.removeCard(this.card);
+    this.flashcardService.deleteCard(this.card.card_id).subscribe(
+        () => console.log('OK'),
+        error => console.log(error)
+    );
   }
 }

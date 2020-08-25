@@ -1,10 +1,6 @@
 export class Card {
+  public card_id: number;
   public title: string;
   public description: string;
-
-  constructor(title: string, description: string) {
-    this.title = title;
-    this.description = description;
-  }
-
+  public user_id: number;
 }

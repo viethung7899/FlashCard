@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {CardsService} from '../../services/cards.service';
 import {Card} from '../../models/card.model';
+import {FlashcardService} from "../../services/flashcard.service";
 
 @Component({
   selector: 'app-add-modal',
@@ -10,17 +10,22 @@ import {Card} from '../../models/card.model';
 export class AddModalComponent implements OnInit {
   @Input() currentSet;
   @ViewChild('form') form;
-  title = '';
-  description = '';
+  card = {
+    title: '',
+    description: ''
+  }
 
-  constructor(private cardsService: CardsService) { }
+  constructor(private flashcardService: FlashcardService) {
+  }
 
   ngOnInit(): void {
 
   }
 
   onSubmit(): void {
-    this.cardsService.addCard(this.currentSet, new Card(this.title, this.description));
+    this.flashcardService
+        .addCard(this.currentSet.set_id, this.card)
+        .subscribe(() => console.log('OK'));
     this.reset();
   }
 

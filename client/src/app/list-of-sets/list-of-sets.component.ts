@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {CardsService} from '../services/cards.service';
 import {Set} from '../models/set.model';
+import {FlashcardService} from "../services/flashcard.service";
 
 @Component({
   selector: 'app-list-of-sets',
@@ -11,20 +11,22 @@ export class ListOfSetsComponent implements OnInit {
   sets: Set[];
   newSet = '';
 
-  constructor(private cardsService: CardsService) {
+  constructor(private flashcardService: FlashcardService) {
   }
 
   ngOnInit(): void {
-    this.sets = this.cardsService.getSets();
-    this.cardsService.setChanged.subscribe(
-      (sets: Set[]) => this.sets = sets
-    );
+    this.loadAllSets();
   }
 
   onAdded(): void {
-    console.log(this.newSet);
-    if (this.newSet.trim().length > 0) {
-      this.cardsService.addSet(this.newSet);
-    }
+    this.flashcardService.addSet(this.newSet).subscribe(
+        () => this.loadAllSets()
+    );
+  }
+
+  loadAllSets() {
+    this.flashcardService.getSets().subscribe(
+        sets => this.sets = sets
+    )
   }
 }

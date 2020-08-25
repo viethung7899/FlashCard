@@ -1,16 +1,16 @@
 <h1>Cards</h1>
-<h4 *ngIf="!selectedSet; else cardsBlock">No set selected</h4>
+<h4 *ngIf="!set; else cardsBlock">No set selected</h4>
 <ng-template #cardsBlock>
-  <h4>{{selectedSet.name}}</h4>
-  <p>{{selectedSet.cards.length}} card(s)</p>
+  <h4>{{set.title}}</h4>
+  <p>{{cards.length}} card(s)</p>
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal">
     Add new card
   </button>
-  <app-card *ngFor="let card of selectedSet.cards" [card]="card"></app-card>
+  <app-card *ngFor="let card of cards" [card]="card"></app-card>
 </ng-template>
 
-<app-add-modal [currentSet]="selectedSet"></app-add-modal>
+<app-add-modal [currentSet]="set"></app-add-modal>
 
 
 

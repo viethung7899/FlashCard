@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CardsService} from '../services/cards.service';
 
 import {Set} from '../models/set.model';
+import {Card} from "../models/card.model";
+import {FlashcardService} from "../services/flashcard.service";
 
 @Component({
   selector: 'app-list-of-cards',
@@ -9,16 +10,23 @@ import {Set} from '../models/set.model';
   styleUrls: ['./list-of-cards.component.css']
 })
 export class ListOfCardsComponent implements OnInit {
-  selectedSet: Set;
+  set: Set;
+  cards: Card[];
 
-  constructor(private cardsService: CardsService) {
+  constructor(private flashcardService: FlashcardService) {
   }
 
   ngOnInit(): void {
-    this.cardsService.setSelected.subscribe(
-      (set: Set) => {
-        this.selectedSet = set;
-      }
-    );
+    this.loadAllCards();
+  }
+
+  loadAllCards() {
+    this.flashcardService.selectSet
+        .subscribe(set => {
+          this.set = set;
+          this.flashcardService.getCards(set.set_id)
+              .subscribe(cards => this.cards = cards);
+        }
+    )
   }
 }

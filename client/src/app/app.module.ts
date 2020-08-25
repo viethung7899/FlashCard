@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -9,7 +10,6 @@ import { ListOfCardsComponent } from './list-of-cards/list-of-cards.component';
 import { CardComponent } from './list-of-cards/card/card.component';
 import { SetComponent } from './list-of-sets/set/set.component';
 import { AddModalComponent } from './list-of-cards/add-modal/add-modal.component';
-import { EditModalComponent } from './list-of-cards/edit-modal/edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +20,11 @@ import { EditModalComponent } from './list-of-cards/edit-modal/edit-modal.compon
     CardComponent,
     SetComponent,
     AddModalComponent,
-    EditModalComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
