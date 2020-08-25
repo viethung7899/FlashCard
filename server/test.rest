@@ -1,0 +1,14 @@
+GET http://localhost:5000/set/2
+
+########
+POST http://localhost:5000/set
+Content-Type: application/json
+
+{
+    "setid": 2,
+    "title": "la pomme",
+    "description": "the apple"
+}
+
+########
+DELETE http://localhost:5000/set/6
