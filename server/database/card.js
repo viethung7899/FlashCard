@@ -5,13 +5,17 @@ const Cards = {
     return knex.select().from('cards').where('set_id', id);
   },
 
+  getByCardId: async (id) => {
+    return knex.select().from('cards').where('card_id', id).first();
+  },
+
   add: async (title, description, setID) => {
     const card = {
       title: title,
       description: description,
       set_id: setID
     };
-    return knex('cards').insert(card);
+    return knex('cards').insert(card, ['card_id']);
   },
 
   delete: async (id) => {

@@ -1,7 +1,0 @@
-li > span {
-  visibility: hidden;
-}
-
-li:hover > span {
-  visibility: visible;
-}
