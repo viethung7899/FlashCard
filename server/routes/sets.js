@@ -2,42 +2,40 @@ const router = require('express').Router();
 
 const Cards = require('../database/card');
 
-// GET /
+// GET sets/
 // get all the cards from the set
 router.get('/:id', (req, res) => {
-    const setID = req.params.id;
-    Cards.getAllCardsBySetId(setID)
-        .then(
-            cards => res.send(cards),
-            reject => res.send('Rejected'))
-        .catch(err => res.send(err));
+    const setId = req.params.id;
+    Cards.getAllCardsBySetId(setId)
+        .then(cards => res.send(cards))
+        .catch(err => res.status(401).send(err));
 });
 
-// POST /
+router.get('/get/:id', (req, res) => {
+    const cardId = req.params.id;
+    Cards.getByCardId(cardId)
+        .then(card => res.send(card))
+        .catch(err => res.status(401).send(err));
+});
+
+// POST sets/
 // add new cards to the set
-router.post('/:id', (req, res) => {
+router.post('/add/:id', (req, res) => {
     const {title, description} = req.body;
     const id = req.params.id;
     Cards.add(title, description, id)
-        .then(
-            onFulfillment => res.send('OK'),
-            onRejection => res.send('Rejected'))
-        .catch(err => res.send(err));
+        .then(cardID => res.send({card_id: cardID}))
+        .catch(err => res.status(401).send(err));
 });
 
-// DELETE /?id=
+// DELETE sets/?id=
 // delete a cards with specific id
-router.delete('/', async (req, res) => {
-    const cardID = req.query.id;
-    console.log()
-    // Delete all cards with the sets
-
+router.delete('/delete/:id', async (req, res) => {
+    const cardID = req.params['id'];
     // Delete the set
     await Cards.delete(cardID)
-        .then(
-            onFulfillment => res.send('OK'),
-            onRejection => res.send('Rejected'))
-        .catch(err => res.send(err));
+        .then(result => res.send({id: result}))
+        .catch(err => res.status(401).send(err));
 });
 
 module.exports = router;
