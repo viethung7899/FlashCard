@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 const knex = require('knex')({
   client: 'pg',
@@ -7,8 +7,8 @@ const knex = require('knex')({
     port: 5432,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: 'flashcard'
-  }
-});
+    database: 'flashcard',
+  },
+})
 
-module.exports = knex;
+module.exports = knex

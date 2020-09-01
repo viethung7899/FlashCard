@@ -1,9 +1,16 @@
-const knex = require('./connection');
+const knex = require('./connection')
 
 const Users = {
   getByUserName: async (username) => {
-    return knex('users').where('username', username).first();
-  }
-};
+    return knex('users').where('user_name', username).first()
+  },
+  getByUserId: async (id) => {
+    return knex('users').where('user_id', id).first()
+  },
 
-module.exports = Users;
+  addNewUser: async (user) => {
+    return knex('users').insert(user).returning('user_id')
+  },
+}
+
+module.exports = Users

@@ -1,45 +1,61 @@
-const router = require('express').Router();
+const router = require('express').Router()
+const middlewares = require('../middlewares')
 
-const Sets = require('../database/set');
-const Cards = require('../database/card');
+const Sets = require('../database/set')
+const Cards = require('../database/card')
+
+require('dotenv').config()
+
+// Verify token middleware
+router.use(middlewares.verifyToken)
 
 // GET /
 // get all the sets from the user
-router.get('/', async (req, res) => {
-   Sets.getAllSetsByUserId(1)
-       .then(sets => res.send(sets))
-       .catch(err => res.status(401).send(err));
-});
+router.get('/', async (req, res, next) => {
+  Sets.getAllSetsByUserId(req.body.userID)
+    .then((sets) => res.send(sets))
+    .catch(next)
+})
 
-router.get('/:id', async(req, res) => {
-    Sets.getBySetId(req.params['id'])
-        .then(set => res.send(set))
-        .catch(err => res.status(401).send(err));
-});
+// GET /:id
+// get the set by set id
+router.get('/:id', async (req, res, next) => {
+  Sets.getBySetId(req.params['id'])
+    .then((set) => {
+      if (req.body.userID !== set.user_id) {
+        res.status(403)
+        next(new Error('Invalid user'))
+      }
+      else res.send(set)
+    })
+    .catch(next)
+})
 
 // POST /
 // add new set from the user
-router.post('/add', async (req, res) => {
-    const title = req.body.title;
+router.post('/add', async (req, res, next) => {
+  const title = req.body.title
+  const id = req.body.userID
+  console.log(id)
+  Sets.add(id, title)
+    .then((set) => {
+      res.send(set[0])
+    })
+    .catch(next)
+})
 
-    Sets.add(1, title)
-        .then(set => {res.send(set[0])})
-        .catch(err => res.status(401).send(err));
-
-});
-
-// DELETE /?deleteID=
+// DELETE /delete/id
 // delete a set with specific id
-router.delete('/delete/:id', async (req, res) => {
-    const setID = req.params['id'];
-    console.log()
-    // Delete all cards with the sets
-    await Cards.deleteAllCardsBySetId(setID);
+router.delete('/delete/:id', async (req, res, next) => {
+  const setID = req.params['id']
 
-    // Delete the set
-    Sets.delete(setID)
-        .then(id => res.send({id: id}))
-        .catch(err => res.status(401).send(err));
-});
+  // Delete all cards with the sets
+  await Cards.deleteAllCardsBySetId(setID)
 
-module.exports = router;
+  // Delete the set
+  Sets.delete(setID)
+    .then((id) => res.send({ id: id }))
+    .catch(next)
+})
+
+module.exports = router

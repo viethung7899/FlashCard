@@ -10,7 +10,9 @@ import {Set} from "../models/set.model";
 })
 export class FlashcardService {
   baseUrl = 'http://localhost:5000';
-  selectSet = new EventEmitter<Set>();
+
+  // Event emitter
+  reloadCards = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -18,25 +20,33 @@ export class FlashcardService {
     return this.http.get<Set[]>(this.baseUrl);
   }
 
-  addSet(title: string) {
-    return this.http.post(this.baseUrl, {
+  getSetById(id: number): Observable<Set> {
+    return this.http.get<Set>(this.baseUrl + '/' + id);
+  }
+
+  addSet(title: string): Observable<Set> {
+    return this.http.post<Set>(this.baseUrl + '/add', {
       title: title
     });
   }
 
   deleteSet(id: number) {
-    return this.http.delete(this.baseUrl + '/?id=' + id);
+    return this.http.delete(this.baseUrl + '/delete/' + id);
   }
 
   getCards(id: number): Observable<Card[]> {
     return this.http.get<Card[]>(this.baseUrl + '/sets/' + id);
   }
 
+  getCardById(id: number): Observable<Card> {
+    return this.http.get<Card>(this.baseUrl + '/sets/get/' + id);
+  }
+
   addCard(id: number, card) {
-    return this.http.post(this.baseUrl + '/sets/' + id, card);
+    return this.http.post(this.baseUrl + '/sets/add/' + id, card);
   }
 
   deleteCard(id: number) {
-    return this.http.delete(this.baseUrl + '/sets/?id=' + id);
+    return this.http.delete(this.baseUrl + '/sets/delete/' + id);
   }
 }
