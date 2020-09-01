@@ -1,7 +1,12 @@
-<a
+<li
   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
   [routerLink]="[set.set_id]"
 >
   {{ set.title }}
-  <i class="fa fa-trash"></i>
-</a>
+  <div class="button-group">
+    <button class="btn btn-warning mr-1"><i class="fa fa-edit"></i></button>
+    <button class="btn btn-danger" (click)="onDelete($event)"><i class="fa fa-trash"></i></button>
+  </div>
+
+
+</li>

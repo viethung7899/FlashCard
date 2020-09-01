@@ -14,7 +14,10 @@ import { CardItemComponent } from './flashcards-component/cards/card-item/card-i
 import { AddCardFormComponent } from './flashcards-component/cards/add-card-form/add-card-form.component'
 import { RegisterFormComponent } from './users-component/register-form/register-form.component'
 import { LogInFormComponent } from './users-component/log-in-form/log-in-form.component'
-import { AuthInterceptor } from './_services/auth.interceptor'
+import { AuthInterceptor } from './_services/auth.interceptor';
+import { ErrorComponent } from './shared/error/error.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive'
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { AuthInterceptor } from './_services/auth.interceptor'
     AddCardFormComponent,
     RegisterFormComponent,
     LogInFormComponent,
+    ErrorComponent,
+    AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,
@@ -43,5 +49,8 @@ import { AuthInterceptor } from './_services/auth.interceptor'
     },
   ],
   bootstrap: [AppComponent],
+  entryComponents: [
+      AlertComponent
+  ]
 })
 export class AppModule {}

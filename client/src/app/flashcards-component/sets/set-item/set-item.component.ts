@@ -1,8 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core'
 
 import { Set } from '../../../_models/set.model'
-import { FlashcardService } from '../../../_services/flashcard.service'
 
 @Component({
   selector: 'app-set-item',
@@ -11,12 +9,14 @@ import { FlashcardService } from '../../../_services/flashcard.service'
 })
 export class SetItemComponent implements OnInit {
   @Input() set: Set
+  @Output() deleteEvent = new EventEmitter<Set>()
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  contains(substring: string) {
-    return this.set.title.toLowerCase().includes(substring.toLowerCase())
+  onDelete($event) {
+    $event.stopPropagation()
+    this.deleteEvent.emit(this.set)
   }
 }

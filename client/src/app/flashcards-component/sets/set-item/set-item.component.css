@@ -1,7 +1,7 @@
-.fa-trash {
+.button-group {
   visibility: hidden;
 }
 
-a:hover > .fa-trash {
+li:hover > .button-group {
   visibility: visible;
 }

@@ -1,17 +1,15 @@
-<div *ngIf="!set; else elseBlock" class="mt-4">
-  <img src="../../../../assets/loading.gif" class="mx-auto" />
+<ng-template appPlaceholder></ng-template>
+<div *ngIf="set" class="mt-4">
+  <h1>{{ set.title }}</h1>
+  <button type="button" class="btn btn-danger mr-2" (click)="onSetDeletion()">Delete this set</button>
+  <button type="button" class="btn btn-secondary" [routerLink]="['/sets']">
+    Go Back
+  </button>
+  <hr />
+  <app-add-card-form [set]="set"></app-add-card-form>
+  <hr />
+  <h4 class="text-right">{{ cards.length }} card(s)</h4>
+  <app-card-item
+          *ngFor="let card of cards"
+          [card]="card" (deleteEvent)="onCardDeletion($event)"></app-card-item>
 </div>
-<ng-template #elseBlock>
-  <div *ngIf="set" class="mt-4">
-    <h1>{{ set.title }}</h1>
-    <button type="button" class="btn btn-danger mr-2">Delete this set</button>
-    <button type="button" class="btn btn-secondary" [routerLink]="['/sets']">
-      Go Back
-    </button>
-    <hr />
-    <app-add-card-form [set]="set"></app-add-card-form>
-    <hr />
-    <h4 class="text-right">{{ cards.length }} card(s)</h4>
-    <app-card-item *ngFor="let card of cards" [card]="card"></app-card-item>
-  </div>
-</ng-template>

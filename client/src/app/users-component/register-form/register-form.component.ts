@@ -90,6 +90,9 @@ export class RegisterFormComponent implements OnInit {
         (error) => {
           console.log(error)
           this.errorMessage = error.error.message
+          this.username.reset()
+          this.password.reset()
+          this.confirmPassword.reset()
         }
       )
   }

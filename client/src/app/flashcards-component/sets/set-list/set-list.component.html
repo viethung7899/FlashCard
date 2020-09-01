@@ -1,3 +1,7 @@
+<ng-template appPlaceholder>
+
+</ng-template>
+
 <h2>Hello {{user.first_name}}</h2>
 <hr />
 <h3>Add new set</h3>
@@ -29,6 +33,6 @@
 />
 <div class="list-group mt-4">
   <ng-container *ngFor="let set of sets">
-    <app-set-item *ngIf="includeWords(set)" [set]="set"></app-set-item>
+    <app-set-item *ngIf="includeWords(set)" [set]="set" (deleteEvent)="onDeletion($event)"></app-set-item>
   </ng-container>
 </div>

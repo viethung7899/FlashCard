@@ -1,10 +1,13 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import {Router} from "@angular/router";
+import {Observable, of, Subject, throwError} from 'rxjs'
 
 import { Card } from '../_models/card.model'
 import { Set } from '../_models/set.model'
 import { User } from '../_models/user.model'
+import {catchError} from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,8 @@ export class FlashcardService {
   // Event emitter
   reloadCards = new EventEmitter()
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getUser(): User {
     return JSON.parse(localStorage.getItem('user'))
