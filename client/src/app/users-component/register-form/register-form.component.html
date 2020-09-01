@@ -1,0 +1,79 @@
+<h1>Register</h1>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="first-name">First name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="first-name"
+        placeholder="First name"
+        formControlName="firstName"
+        [ngClass]="{'is-invalid': firstName.touched && firstName.invalid,
+        'is-valid': firstName.valid}"
+      />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="last-name">Last name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="last-name"
+        placeholder="Last name"
+        formControlName="lastName"
+        [ngClass]="{'is-invalid': lastName.touched && lastName.invalid,
+        'is-valid': lastName.valid}"
+      />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Username"
+        formControlName="username"
+        [ngClass]="{'is-invalid': username.touched && username.invalid,
+        'is-valid': username.valid}"
+      />
+      <div class="invalid-feedback" *ngIf="username.touched && username.invalid">
+        Username must contains more than 6 characters
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+        formControlName="password"
+        [ngClass]="{'is-invalid': password.touched && password.invalid,
+        'is-valid': password.valid}"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="password-confirm">Confirm password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password-confirm"
+        placeholder="Confirm password"
+        formControlName="confirmPassword"
+        [ngClass]="{'is-invalid': confirmPassword.touched && confirmPassword.invalid,
+        'is-valid': confirmPassword.valid}"
+      />
+      <div class="invalid-feedback" *ngIf="confirmPassword.touched && confirmPassword.invalid">
+        Password is not matched
+      </div>
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid">Register</button>
+</form>
+<p class="text-center">
+  Already had an account?
+  <a [routerLink]="['/login']">Log in</a>
+</p>

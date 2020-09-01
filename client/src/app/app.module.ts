@@ -1,32 +1,47 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from "@angular/common/http";
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { ListOfSetsComponent } from './list-of-sets/list-of-sets.component';
-import { ListOfCardsComponent } from './list-of-cards/list-of-cards.component';
-import { CardComponent } from './list-of-cards/card/card.component';
-import { SetComponent } from './list-of-sets/set/set.component';
-import { AddModalComponent } from './list-of-cards/add-modal/add-modal.component';
+import { AppComponent } from './app.component'
+import { NavbarComponent } from './navbar/navbar.component'
+
+import { AppRoutingModule } from './app-routing.module'
+import { SetListComponent } from './flashcards-component/sets/set-list/set-list.component'
+import { SetItemComponent } from './flashcards-component/sets/set-item/set-item.component'
+import { CardsDetailComponent } from './flashcards-component/cards/cards-detail/cards-detail.component'
+import { CardItemComponent } from './flashcards-component/cards/card-item/card-item.component'
+import { AddCardFormComponent } from './flashcards-component/cards/add-card-form/add-card-form.component'
+import { RegisterFormComponent } from './users-component/register-form/register-form.component'
+import { LogInFormComponent } from './users-component/log-in-form/log-in-form.component'
+import { AuthInterceptor } from './_services/auth.interceptor'
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ListOfSetsComponent,
-    ListOfCardsComponent,
-    CardComponent,
-    SetComponent,
-    AddModalComponent,
+    SetListComponent,
+    SetItemComponent,
+    CardsDetailComponent,
+    CardItemComponent,
+    AddCardFormComponent,
+    RegisterFormComponent,
+    LogInFormComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

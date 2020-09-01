@@ -1,0 +1,34 @@
+<h2>Hello {{user.first_name}}</h2>
+<hr />
+<h3>Add new set</h3>
+<form (ngSubmit)="addSet()" #addSetForm="ngForm" class="form-inline flex-row">
+  <input
+    type="text"
+    class="form-control col-10"
+    placeholder="Add new card"
+    [(ngModel)]="newSetTitle"
+    name="newSetName"
+    required
+  />
+  <button
+    type="submit"
+    class="btn btn-success col-2"
+    [disabled]="!addSetForm.valid"
+  >
+    Add
+  </button>
+</form>
+
+<hr />
+<h3>Find the set</h3>
+<input
+  type="text"
+  [(ngModel)]="setFinding"
+  placeholder="Find set"
+  class="form-control mt-4"
+/>
+<div class="list-group mt-4">
+  <ng-container *ngFor="let set of sets">
+    <app-set-item *ngIf="includeWords(set)" [set]="set"></app-set-item>
+  </ng-container>
+</div>

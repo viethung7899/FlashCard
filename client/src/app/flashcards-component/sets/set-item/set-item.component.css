@@ -1,0 +1,7 @@
+.fa-trash {
+  visibility: hidden;
+}
+
+a:hover > .fa-trash {
+  visibility: visible;
+}

@@ -1,3 +1,11 @@
 <nav class="navbar navbar-dark bg-primary">
   <span class="navbar-brand mb-0 h1">Flash card</span>
+  <button
+    class="btn btn-outline-light my-2 my-sm-0"
+    type="button"
+    *ngIf="loggedIn()"
+    (click)="logOut()"
+  >
+    Log out
+  </button>
 </nav>
