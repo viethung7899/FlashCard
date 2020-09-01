@@ -36,7 +36,6 @@ router.get('/:id', async (req, res, next) => {
 router.post('/add', async (req, res, next) => {
   const title = req.body.title
   const id = req.body.userID
-  console.log(id)
   Sets.add(id, title)
     .then((set) => {
       res.send(set[0])
