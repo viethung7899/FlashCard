@@ -43,6 +43,11 @@ yarn-error.log
 testem.log
 /typings
 
+server/api-test
+
 # System Files
 .DS_Store
 Thumbs.db
+
+.prettierrc
+.env
